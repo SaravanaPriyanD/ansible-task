@@ -10,7 +10,7 @@
   blockinfile:
     dest: /etc/php/{{ php_version }}/fpm/php.ini
     block: |
-      date.time = Asia/Jakarta
+      date.time = Asia/Tokyo
       cgi-fix_pathinfo = 0
     backup: yes
   notify: restart php-fpm
