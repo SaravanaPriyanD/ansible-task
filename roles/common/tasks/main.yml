@@ -8,10 +8,9 @@
   apt:
     upgrade: dist
     update_cache: yes
-- name: Setup timezone to Asia/Jakarta
+- name: Setup timezone to Asia/Tokyo
   timezone:
-    name: Asia/Jakarta
-    state: latest
-
+    name: Asia/Tokyo
+    
 
 
