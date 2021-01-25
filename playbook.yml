@@ -53,25 +53,6 @@
     ansible.builtin.systemd:
       name: echo
       state: reloaded
-  
-  - name: Include the common role
-    include_role:
-      name: common
-    when:
-      - ansible_facts['distribution'] == "Ubuntu"
-
-  - name: Include the web role
-    include_role:
-      name: web
-    when:
-      - ansible_facts['distribution'] == "Ubuntu"
-
-  - name: Include the db role
-    include_role:
-      name: db
-    when:
-      - ansible_facts['distribution'] == "Ubuntu"
-
 
   roles:
   - ansible-role-ntp
