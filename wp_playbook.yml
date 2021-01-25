@@ -1,5 +1,5 @@
 ---
-- hosts: 172.31.84.9
+- hosts: UBUNTU
   gather_facts: yes
   become: yes
 
