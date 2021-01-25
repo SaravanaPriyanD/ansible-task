@@ -1,0 +1,9 @@
+[Unit]
+Description=echoservice
+
+[Service]
+Type=forking
+ExecStart=/usr/bin/service-script
+
+[Install]
+WantedBy=multi-user.target

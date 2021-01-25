@@ -1,0 +1,78 @@
+---
+- hosts: all
+  gather_facts: yes
+  become: yes
+
+  tasks:
+  - name: create user johndoe
+    user:
+       name: johndoe
+       password: johndoe@123
+
+  - name: generate SSH key for user 
+    user:
+      name: johndoe 
+      generate_ssh_key: yes
+      ssh_key_type: rsa
+      ssh_key_bits: 2048
+      ssh_key_file: .ssh/johndoe_ssh
+      force: no
+    
+  - name: Upgrade all packages
+    yum:
+      name: '*'
+      state: latest
+
+  - name: install specific packages
+    yum:
+      name: "{{ item }}"
+      state: present
+    with_items:
+       - screen
+       - vim
+ #      - htop
+       - git
+ #      - atop
+       - ntp
+       - unbound
+ #     - monit
+
+  - name: copy service script file
+    copy:
+      src: ./templates/service-script
+      dest: /usr/bin/service-script
+      mode: '0755'
+  
+  - name: copy service file
+    copy:
+      src: ./templates/echo.service
+      dest: /etc/systemd/system/echo.service
+      mode: '0755'
+
+  - name: start the service
+    ansible.builtin.systemd:
+      name: echo
+      state: reloaded
+  
+  - name: Include the common role
+    include_role:
+      name: common
+    when:
+      - ansible_facts['distribution'] == "Ubuntu"
+
+  - name: Include the web role
+    include_role:
+      name: web
+    when:
+      - ansible_facts['distribution'] == "Ubuntu"
+
+  - name: Include the db role
+    include_role:
+      name: db
+    when:
+      - ansible_facts['distribution'] == "Ubuntu"
+
+
+  roles:
+  - ansible-role-ntp
+  

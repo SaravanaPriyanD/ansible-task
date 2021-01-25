@@ -1,0 +1,2 @@
+#!/bin/bash
+echo "`date -u` `echo helloworld`" >> /var/log/messages
