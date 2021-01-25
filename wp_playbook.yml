@@ -1,0 +1,27 @@
+---
+- hosts: 172.31.84.9
+  gather_facts: yes
+  become: yes
+
+  tasks:
+  - name: create user johndoe
+    user:
+       name: johndoe
+       password: johndoe@123
+
+  - name: generate SSH key for user 
+    user:
+      name: johndoe 
+      generate_ssh_key: yes
+      ssh_key_type: rsa
+      ssh_key_bits: 2048
+      ssh_key_file: .ssh/johndoe_ssh
+      force: no
+    
+  roles:
+  - common
+  - web
+  - db
+
+
+  
